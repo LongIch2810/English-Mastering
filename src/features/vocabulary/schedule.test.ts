@@ -1,0 +1,2 @@
+import {describe,it,expect} from 'vitest'; import {schedule} from './schedule';
+describe('l?ch ?n t?p',()=>{it('??t l?i khi qu?n v? kh?ng gi?m h? s? d??i 1.3',()=>{const x=schedule({interval:20,repetitions:5,ease:1.3},'again',new Date('2026-01-01'));expect(x.repetitions).toBe(0);expect(x.ease).toBe(1.3);expect(x.nextReview.toISOString()).toBe('2026-01-02T00:00:00.000Z')});it('t?ng kho?ng c?ch khi nh?',()=>expect(schedule({interval:6,repetitions:2,ease:2.5},'good').interval).toBe(15))});
