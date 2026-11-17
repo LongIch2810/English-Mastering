@@ -16,6 +16,8 @@ it('làm trọn bài hằng ngày 10 câu, lưu tiến độ và chuỗi ngày',
   expect(choices).toHaveLength(4);
   fireEvent.click(choices[0]);
   expect(screen.getByRole('status').textContent).toMatch(/Chính xác|Chưa đúng/);
+  expect(screen.getByText('Các lựa chọn còn lại')).toBeTruthy();
+  expect(screen.getByRole('status').querySelectorAll('.examples')).toHaveLength(4);
   fireEvent.click(screen.getByRole('button',{name:i<10?/Câu tiếp theo/:/Xem kết quả/}));
  }
  expect(screen.getByText(/câu đúng/)).toBeTruthy();

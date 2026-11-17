@@ -17,6 +17,9 @@ describe('bộ từ để ôn',()=>{
    expect(q.options).toHaveLength(4);
    expect(new Set(q.options.map(o=>o.toLowerCase())).size,item.text+type).toBe(4);
    expect(q.options).toContain(q.answer);
+   expect(q.choices).toHaveLength(4);
+   expect(q.choices.map(c=>type==='en2vi'?c.meaning:c.text)).toEqual(q.options);
+   expect(q.choices.filter(c=>c.id===item.id)).toHaveLength(1);
    expect(q.answer).toBe(type==='en2vi'?item.meaning:item.text);
   }
  });

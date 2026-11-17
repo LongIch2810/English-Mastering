@@ -3,7 +3,7 @@ import {groups} from '../vocabulary/verb-patterns';
 
 export type Item={id:string;text:string;kind:string;category:string;meaning:string;explanation:string;examples:[string,string][]};
 export type QType='vi2en'|'cloze'|'en2vi';
-export type Question={id:string;item:Item;type:QType;options:string[];answer:string;sentence?:string;translation?:string;inflected?:boolean};
+export type Question={id:string;item:Item;type:QType;options:string[];choices:Item[];answer:string;sentence?:string;translation?:string;inflected?:boolean};
 export type Mode={kinds:string[];types:QType[];count:number|'all';onlyWeak?:boolean};
 export type Stats={words:Record<string,{r:number;w:number;last:string}>;daily:Record<string,{correct:number;total:number}>};
 
@@ -60,14 +60,15 @@ export function makeQuestion(item:Item,type:QType,pool:Item[],rng:()=>number):Qu
  const sameCategory=shuffle(candidates.filter(x=>x.kind===item.kind&&x.category===item.category),rng);
  const sameKind=shuffle(candidates.filter(x=>x.kind===item.kind&&x.category!==item.category),rng);
  const others=shuffle(candidates.filter(x=>x.kind!==item.kind),rng);
- const distractors:string[]=[];
+ const distractors:Item[]=[];
  for(const x of [...sameCategory,...sameKind,...others]){
   const value=pick(x),k=value.toLowerCase();
   if(seen.has(k))continue;
-  seen.add(k);distractors.push(value);
+  seen.add(k);distractors.push(x);
   if(distractors.length===3)break;
  }
- const base={id:item.id+':'+type,item,type,answer:correct,options:shuffle([correct,...distractors],rng)};
+ const ordered=shuffle([item,...distractors],rng);
+ const base={id:item.id+':'+type,item,type,answer:correct,options:ordered.map(pick),choices:ordered};
  if(type==='cloze'){const b=blank(item)!;return {...base,sentence:b.sentence,translation:b.translation,inflected:b.inflected}}
  return base;
 }

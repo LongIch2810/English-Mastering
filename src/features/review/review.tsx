@@ -1,10 +1,19 @@
 import {useMemo,useState} from 'react';
 import {AudioButton} from '../../shared/speech';
 import {store} from '../vocabulary/store';
-import {DAILY_COUNT,buildPool,buildQuiz,dailyMode,dayKey,kindLabels,loadStats,recordAnswer,recordDaily,saveStats,streak,typeLabels,type Mode,type QType,type Question,type Stats} from './quiz';
+import {DAILY_COUNT,buildPool,buildQuiz,dailyMode,dayKey,kindLabels,loadStats,recordAnswer,recordDaily,saveStats,streak,typeLabels,type Item,type Mode,type QType,type Question,type Stats} from './quiz';
 
 type Screen='menu'|'quiz'|'result';
 const allTypes:QType[]=['vi2en','cloze','en2vi'];
+
+function WordNote({item,right}:{item:Item;right?:boolean}){
+ const example=item.examples[0];
+ return <div className="examples" style={right?{borderLeft:'3px solid #2e7d5b',paddingLeft:10}:undefined}>
+  <p><b>{item.text}</b> <AudioButton text={item.text}/> — {item.meaning} <small>({kindLabels[item.kind]||item.kind})</small></p>
+  {item.explanation&&<small>{item.explanation}</small>}
+  {example&&<p>{example[0]} <AudioButton text={example[0]}/><br/><small>{example[1]}</small></p>}
+ </div>;
+}
 
 export function Review(){
  const pool=useMemo(buildPool,[]);
@@ -49,7 +58,7 @@ export function Review(){
  };
 
  if(screen==='quiz'&&q){
-  const ok=picked===q.answer,example=q.item.examples[0];
+  const ok=picked===q.answer;
   return <>
    <div className="eyebrow">ÔN TẬP TỪ VỰNG · {isDaily?'HÔM NAY':'TỰ CHỌN'}</div>
    <p className="lead">Câu {index+1}/{questions.length} · Đúng {score}</p>
@@ -66,9 +75,10 @@ export function Review(){
     </div>
     {picked!==null&&<div className="notice" role="status">
      <strong>{ok?'Chính xác!':'Chưa đúng.'}</strong>
-     <p>{q.item.text} <AudioButton text={q.item.text}/> — {q.item.meaning}</p>
-     {q.item.explanation&&<p>{q.item.explanation}</p>}
-     {example&&<p>{example[0]} <AudioButton text={example[0]}/><br/><small>{example[1]}</small></p>}
+     <h3>Đáp án đúng</h3>
+     <WordNote item={q.item} right/>
+     <h3>Các lựa chọn còn lại</h3>
+     {q.choices.filter(c=>c.id!==q.item.id).map(c=><WordNote key={c.id} item={c}/>)}
      <button className="primary" onClick={next}>{index+1<questions.length?'Câu tiếp theo →':'Xem kết quả'}</button>
     </div>}
    </article>
@@ -83,7 +93,7 @@ export function Review(){
    <div className="eyebrow">KẾT QUẢ</div><h1>{score}/{questions.length} câu đúng ({pct}%)</h1>
    <p className="lead">{isDaily?'Bạn đã hoàn thành bài ôn hôm nay. Chuỗi ngày liên tiếp: '+streak(stats)+' ngày.':'Bài ôn tự chọn đã hoàn thành.'}</p>
    {wrong.length>0?<><h2>Các từ cần ôn lại</h2><div className="cards">{wrong.map(w=><article className="word-card" key={w.id}><h3>{w.item.text} <AudioButton text={w.item.text}/></h3><p>{w.item.meaning}</p>{w.item.examples[0]&&<small>{w.item.examples[0][0]}</small>}</article>)}</div>
-    <div className="toolbar"><button className="primary" onClick={saveWrong}>Lưu các từ sai vào Từ vựng của tôi</button><button onClick={()=>start(wrong.map(w=>({...w,options:[...w.options].reverse()})),false)}>Làm lại các câu sai</button></div></>
+    <div className="toolbar"><button className="primary" onClick={saveWrong}>Lưu các từ sai vào Từ vựng của tôi</button><button onClick={()=>start(wrong.map(w=>({...w,options:[...w.options].reverse(),choices:[...w.choices].reverse()})),false)}>Làm lại các câu sai</button></div></>
     :<p className="notice">Bạn trả lời đúng tất cả. Hãy quay lại vào ngày mai để giữ chuỗi ôn tập.</p>}
    {message&&<p role="status">{message}</p>}
    <button onClick={()=>{setScreen('menu');setMessage('')}}>Về menu ôn tập</button>
