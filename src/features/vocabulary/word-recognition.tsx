@@ -53,7 +53,7 @@ const rows:[string,string,string,string][]=[
 export function RecognitionGuide({kind}:{kind:string}){
  const guide=guides[kind];
  if(!guide)return null;
- return <details className="word-card" open><summary><strong>{guide.title}</strong></summary>
+ return <details className="word-card"><summary><strong>{guide.title}</strong></summary>
   <p className="notice">Câu hỏi chính: {guide.question}</p>
   {guide.rules.map(rule=><section key={rule.title}><h3>{rule.title}</h3><p>{rule.detail}</p>{rule.examples.map(([en,vi,mark])=><div className="examples" key={en}><p>{en} <AudioButton text={en}/></p><small>{vi}{mark&&' · Từ cần chú ý: '+mark}</small></div>)}</section>)}
   {guide.pairs&&<><h3>Ví dụ phân biệt</h3>{guide.pairs.map(pair=><section className="word-card" key={pair.title}><h4>{pair.title}</h4><p>{pair.note}</p>{pair.items.map(([en,vi,mark])=><div className="examples" key={en}><p>{en} <AudioButton text={en}/></p><small>{vi} · {mark}</small></div>)}</section>)}</>}
