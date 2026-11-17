@@ -1,5 +1,5 @@
 import {AudioButton} from '../../shared/speech';
-const groups = [
+export const groups = [
  {title:'Động từ + to + động từ nguyên mẫu',description:'Sau các động từ này, một hành động tiếp theo thường được diễn đạt bằng to + động từ nguyên mẫu.',items:[
  ['want to','muốn','I want to improve my English.','Tôi muốn cải thiện tiếng Anh.'],
  ['need to','cần','We need to leave now.','Chúng ta cần đi ngay.'],

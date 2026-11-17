@@ -5,3 +5,11 @@
 table{border-collapse:collapse;width:100%;min-width:560px}
 th,td{border:1px solid var(--line,#d9d9e3);padding:8px 10px;text-align:left;vertical-align:top}
 details>summary{cursor:pointer}
+
+.choices{display:grid;gap:10px;margin:18px 0}
+.choice{text-align:left;padding:13px 16px;border:1px solid #dce6de;border-radius:10px;background:#fff;color:#202d29;font-size:15px}
+.choice:hover:not(:disabled){border-color:#246c58;background:#f2f7f3}
+.choice:disabled{cursor:default}
+.choice.right{border-color:#2e7d5b;background:#e3f3ea}
+.choice.wrong{border-color:#c0504d;background:#fbe9e8}
+.muted{color:#6b7c73}
