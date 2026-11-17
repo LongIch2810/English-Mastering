@@ -1,4 +1,5 @@
-import {useMemo,useState} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {AudioButton} from '../../shared/speech';
 import {store} from '../vocabulary/store';
 import {DAILY_COUNT,buildPool,buildQuiz,dailyMode,dayKey,kindLabels,loadStats,recordAnswer,recordDaily,saveStats,streak,typeLabels,type Item,type Mode,type QType,type Question,type Stats} from './quiz';
@@ -24,6 +25,7 @@ export function Review(){
  const [wrong,setWrong]=useState<Question[]>([]),[score,setScore]=useState(0);
  const [isDaily,setIsDaily]=useState(false),[message,setMessage]=useState('');
  const [kind,setKind]=useState('all'),[type,setType]=useState<'mix'|QType>('mix'),[count,setCount]=useState('20'),[onlyWeak,setOnlyWeak]=useState(false);
+ const [search]=useSearchParams(),autoStarted=useRef(false);
  const today=dayKey(),todayResult=stats.daily[today];
  const seen=Object.keys(stats.words).length,totals=Object.values(stats.words).reduce((a,x)=>({r:a.r+x.r,w:a.w+x.w}),{r:0,w:0});
  const accuracy=totals.r+totals.w?Math.round(100*totals.r/(totals.r+totals.w)):null;
@@ -32,6 +34,11 @@ export function Review(){
   if(!qs.length){setMessage('Không có câu hỏi phù hợp với lựa chọn này.');return}
   setMessage('');setQuestions(qs);setIndex(0);setPicked(null);setWrong([]);setScore(0);setIsDaily(daily);setScreen('quiz');
  };
+ useEffect(()=>{
+  if(autoStarted.current||search.get('mode')!=='weak')return;
+  autoStarted.current=true;
+  start(buildQuiz(pool,{kinds:[],types:allTypes,count:'all',onlyWeak:true},stats,'weak-'+Date.now()),false);
+ },[]);
  const startDaily=()=>start(buildQuiz(pool,dailyMode(),stats,'daily-'+today),true);
  const startCustom=()=>{
   const mode:Mode={kinds:kind==='all'?[]:[kind],types:type==='mix'?allTypes:[type],count:count==='all'?'all':Number(count),onlyWeak};

@@ -113,3 +113,16 @@ export function buildQuiz(pool:Item[],mode:Mode,stats:Stats,seed:string):Questio
 }
 export const DAILY_COUNT=10;
 export const dailyMode=():Mode=>({kinds:[],types:['vi2en','cloze','en2vi'],count:DAILY_COUNT});
+
+export type WeakEntry={item:Item;r:number;w:number;last:string;forgetting:boolean};
+// Các từ đã từng trả lời sai, từ đang quên (sai nhiều hơn hoặc bằng đúng) xếp trước.
+export function weakItems(pool:Item[],s:Stats):WeakEntry[]{
+ const byId=new Map(pool.map(x=>[x.id,x]));
+ const list:WeakEntry[]=[];
+ for(const [id,st] of Object.entries(s.words)){
+  const item=byId.get(id);
+  if(item&&st.w>0)list.push({item,r:st.r,w:st.w,last:st.last,forgetting:st.w>=st.r});
+ }
+ return list.sort((a,b)=>Number(b.forgetting)-Number(a.forgetting)||(b.w-b.r)-(a.w-a.r)||b.last.localeCompare(a.last)||a.item.text.localeCompare(b.item.text));
+}
+export function forgetWord(s:Stats,id:string):Stats{const {[id]:_,...rest}=s.words;return {...s,words:rest}}

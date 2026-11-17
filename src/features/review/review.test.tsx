@@ -1,12 +1,13 @@
 // @vitest-environment jsdom
 import {afterEach,beforeEach,expect,it,vi} from 'vitest';
 import {cleanup,fireEvent,render,screen} from '@testing-library/react';
+import {MemoryRouter} from 'react-router-dom';
 import {SpeechProvider} from '../../shared/speech';
 import {Review} from './review';
 import {dayKey,loadStats} from './quiz';
 beforeEach(()=>{localStorage.clear();Object.defineProperty(window,'speechSynthesis',{value:Object.assign(new EventTarget(),{getVoices:()=>[],cancel:vi.fn(),speak:vi.fn()}),configurable:true})});
 afterEach(cleanup);
-const ui=()=>render(<SpeechProvider><Review/></SpeechProvider>);
+const ui=(url='/review')=>render(<SpeechProvider><MemoryRouter initialEntries={[url]}><Review/></MemoryRouter></SpeechProvider>);
 it('làm trọn bài hằng ngày 10 câu, lưu tiến độ và chuỗi ngày',()=>{
  ui();
  fireEvent.click(screen.getByRole('button',{name:/Bắt đầu ôn hôm nay/}));
@@ -33,4 +34,13 @@ it('tự chọn tất cả giới từ theo dạng nghĩa tiếng Việt',()=>{
  fireEvent.click(screen.getByRole('button',{name:'Bắt đầu bài ôn'}));
  expect(screen.getByText(/Câu 1\/15/)).toBeTruthy();
  expect(screen.getByText('Nghĩa tiếng Việt:')).toBeTruthy();
+});
+it('chế độ ?mode=weak chỉ ôn các từ từng sai',()=>{
+ localStorage.setItem('english-mastery-review-v1',JSON.stringify({words:{w1:{r:0,w:2,last:'2026-11-17'},w2:{r:0,w:1,last:'2026-11-17'}},daily:{}}));
+ ui('/review?mode=weak');
+ expect(screen.getByText(/Câu 1\/2/)).toBeTruthy();
+});
+it('chế độ ?mode=weak khi chưa có từ sai thì ở lại menu và báo rõ',()=>{
+ ui('/review?mode=weak');
+ expect(screen.getByRole('alert').textContent).toMatch(/Không có câu hỏi/);
 });
