@@ -45,6 +45,7 @@ src/
   features/
     vocabulary/               # từ vựng, flashcards, lịch ôn, hướng dẫn nhận biết từ loại
       data/                   # bộ từ (words, extra-words, more-words, final-words)
+    review/                   # ôn tập từ vựng: bài hằng ngày, tự chọn, lưu tiến độ
     pronunciation/            # phiên âm CMUdict và cách đọc tiếng Việt
     aptis/                    # hướng dẫn 18 phần Aptis, cấu trúc đề, lưu tiến độ
       data/
