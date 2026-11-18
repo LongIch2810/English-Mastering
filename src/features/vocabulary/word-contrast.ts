@@ -43,5 +43,23 @@ export const contrastGuides:Record<string,Guide>={
    {title:'get – become – go (thay đổi trạng thái)',note:'get thông dụng nhất; become trang trọng hơn; go thường chỉ thay đổi tiêu cực.',items:[['It gets dark early in winter.','Mùa đông trời tối sớm.','get dark / cold / tired'],['She became a doctor.','Cô ấy trở thành bác sĩ.','become + danh từ'],['The milk went bad.','Sữa bị hỏng.','go bad / wrong / mad']]}
   ],
   traps:['Không dịch từng chữ từ tiếng Việt: “làm một quyết định” → make a decision; “mưa mạnh” → heavy rain.','Một số cụm chỉ đi với một động từ: take a photo (không nói make a photo), do homework (không nói make homework).','Mức độ trang trọng khác nhau: have a go (thân mật), make an attempt (trang trọng).']
+ },
+ idiom:{
+  title:'Thành ngữ (idiom) là gì và dùng thế nào trong Speaking, Writing',
+  question:'Cụm từ này có nghĩa riêng, khác với nghĩa của từng từ ghép lại không?',
+  rules:[
+   {title:'1. Idiom /ˈɪd.i.əm/ là thành ngữ',detail:'Là một cụm từ có ý nghĩa riêng, thường không thể dịch từng từ rồi ghép nghĩa lại. Hãy học cả cụm cùng nghĩa bóng.',examples:[['The exam was a piece of cake.','Bài thi dễ như ăn bánh.','a piece of cake = rất dễ (không phải miếng bánh)'],['It’s raining cats and dogs.','Trời mưa như trút nước.','không có mèo hay chó rơi xuống']]},
+   {title:'2. Giữ nguyên các từ trong cụm',detail:'Không thay từ đồng nghĩa: không nói “a slice of cake” hay “once in a blue sun”. Chỉ động từ chính được chia thì và ngôi.',examples:[['She broke the ice with a joke.','Cô ấy phá vỡ sự ngại ngùng bằng một câu đùa.','break → broke'],['He is hitting the books tonight.','Tối nay anh ấy học bài chăm chỉ.','hit → hitting']]},
+   {title:'3. Dùng trong Speaking',detail:'Thành ngữ giúp câu trả lời tự nhiên và sinh động. Chỉ cần 1–2 thành ngữ cho mỗi câu trả lời dài, và giải thích thêm một ý để người nghe hiểu.',examples:[['I eat out once in a blue moon because it costs an arm and a leg.','Tôi rất hiếm khi ăn ngoài vì rất đắt.','Speaking Part 1 hoặc 4'],['At the end of the day, I prefer staying healthy.','Xét cho cùng, tôi thích giữ sức khỏe hơn.','dùng để chốt ý']]},
+   {title:'4. Dùng trong Writing: chọn theo người nhận',detail:'Email thân mật (Part 3, Part 4 gửi bạn) dùng được thành ngữ thân mật. Thư trang trọng nên dùng thành ngữ trung tính (in the long run, on top of that) hoặc từ trang trọng thay thế.',examples:[['Hi Lan, the test was a piece of cake! See you soon.','Chào Lan, bài thi dễ như ăn bánh! Hẹn sớm gặp.','email thân mật'],['I believe this will be cheaper in the long run.','Tôi tin điều này sẽ rẻ hơn về lâu dài.','phù hợp cả thư trang trọng']]},
+   {title:'5. Cách học thành ngữ',detail:'Học theo chủ đề, ghi nguyên câu ví dụ, lưu vào “Từ vựng của tôi” và ôn bằng phần Ôn tập từ vựng.',examples:[]}
+  ],
+  suffixes:'Thành ngữ không có dấu hiệu nhận biết qua đuôi từ. Dấu hiệu thường gặp: nghĩa từng từ ghép lại nghe vô lý hoặc không hợp ngữ cảnh.',
+  pairs:[
+   {title:'Nghĩa đen và nghĩa bóng',note:'Cùng cụm từ có thể dùng theo nghĩa đen, nhưng thành ngữ chỉ có nghĩa bóng.',items:[['She broke the ice on the pond.','Cô ấy làm vỡ lớp băng trên ao.','nghĩa đen'],['She broke the ice by asking my name.','Cô ấy phá vỡ sự ngại ngùng bằng cách hỏi tên tôi.','nghĩa bóng (thành ngữ)'],['I’m feeling blue today.','Hôm nay tôi thấy buồn.','nghĩa bóng; blue = buồn']]},
+   {title:'Thân mật và trang trọng',note:'Trong thư trang trọng, thay thành ngữ thân mật bằng cách nói trung tính.',items:[['It cost an arm and a leg.','Nó đắt kinh khủng.','thân mật'],['It was very expensive.','Nó rất đắt.','trang trọng hơn'],['We are in the same boat.','Chúng ta cùng cảnh ngộ.','thân mật'],['We are facing the same difficulty.','Chúng ta gặp cùng khó khăn.','trang trọng hơn']]},
+   {title:'Thành ngữ gần nghĩa',note:'Nhiều thành ngữ có nghĩa gần nhau nhưng sắc thái khác nhau.',items:[['I’m over the moon about the news.','Tôi rất vui với tin này.','vui mừng, thân mật'],['She was on cloud nine all day.','Cô ấy vui sướng suốt cả ngày.','vui sướng tột độ'],['I was in hot water at work.','Tôi gặp rắc rối ở chỗ làm.','rắc rối do lỗi của mình'],['I had to face the music.','Tôi phải đối mặt hậu quả.','chịu hậu quả sau khi làm sai']]}
+  ],
+  traps:['Không dịch từng chữ từ tiếng Việt sang thành ngữ tiếng Anh và ngược lại.','Không lạm dụng: dùng quá nhiều thành ngữ làm bài nói hoặc viết thiếu tự nhiên.','Không dùng thành ngữ khi chưa chắc nghĩa và ngữ cảnh; hãy kiểm tra ví dụ trước.']
  }
 };

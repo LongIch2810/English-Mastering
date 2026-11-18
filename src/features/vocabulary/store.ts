@@ -2,6 +2,7 @@ import {rows} from './data/words';
 import {extraRows} from './data/extra-words';
 import {moreRows} from './data/more-words';
 import {finalRows} from './data/final-words';
+import {idiomRows} from './data/idioms';
 import {schedule} from './schedule';
 
 export type Word={id:number;text:string;kind:string;category:string;meaning:string;explanation:string;examples:string};
@@ -12,7 +13,7 @@ const key='english-mastery-data-v1';
 const empty=():Data=>({saved:[],learned:[],attempts:[],reviews:[]});
 function read():Data {const raw=localStorage.getItem(key);if(!raw)return empty();try{return JSON.parse(raw) as Data}catch{throw new Error('Không đọc được dữ liệu lưu trên trình duyệt.')}}
 function write(data:Data){try{localStorage.setItem(key,JSON.stringify(data))}catch{throw new Error('Không thể lưu dữ liệu. Hãy kiểm tra dung lượng hoặc quyền lưu trữ của trình duyệt.')}}
-export const words:Word[]=[...rows,...extraRows,...moreRows,...finalRows].map(([text,kind,category,meaning,explanation,examples],i)=>({id:i+1,text,kind,category,meaning,explanation,examples:JSON.stringify(examples)}));
+export const words:Word[]=[...rows,...extraRows,...moreRows,...finalRows,...idiomRows].map(([text,kind,category,meaning,explanation,examples],i)=>({id:i+1,text,kind,category,meaning,explanation,examples:JSON.stringify(examples)}));
 export const store={
  async words(kind:string){return words.filter(w=>w.kind===kind).sort((a,b)=>a.text.localeCompare(b.text))},
  async saved(){return read().saved},
